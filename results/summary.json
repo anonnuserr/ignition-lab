@@ -1,0 +1,334 @@
+{
+  "reactivity": {
+    "fit_vs_integral_max_deviation_percent_0p5_to_100_keV": 0.7890420326621461,
+    "fit_vs_integral_deviation_percent_at_0p2_keV": -1.2564023156900084,
+    "peak_reactivity_m3_s": 8.94651392398691e-22,
+    "peak_reactivity_temperature_kev": 66.646,
+    "reactivity_m3_s": {
+      "1 keV": 6.85688424959328e-27,
+      "5 keV": 1.3657833184867878e-23,
+      "10 keV": 1.1361654705836232e-22,
+      "15 keV": 2.7399296107880726e-22,
+      "20 keV": 4.330201895538215e-22,
+      "50 keV": 8.64908494548689e-22,
+      "100 keV": 8.447662458665835e-22
+    },
+    "quadratic_max_error_percent_10_to_20_keV": 10.470316609589814,
+    "quadratic_max_error_temperature_kev": 13.54,
+    "quadratic_error_percent_at_5_keV": 101.34965501312809,
+    "quadratic_error_percent_at_30_keV": 48.18622753817144
+  },
+  "ideal_ignition_temperature_kev": 4.297798591309217,
+  "thresholds_fit": {
+    "Q=1": {
+      "min_lawson_parameter_m3s": 2.524480482998134e+19,
+      "temperature_at_min_lawson_parameter_kev": 25.71993826717632,
+      "min_triple_product_kev_m3s": 4.672331251735488e+20,
+      "temperature_at_min_triple_product_kev": 13.660646157769051
+    },
+    "Q=2": {
+      "min_lawson_parameter_m3s": 4.344837610515877e+19,
+      "temperature_at_min_lawson_parameter_kev": 25.756997381726276,
+      "min_triple_product_kev_m3s": 8.068685250827028e+20,
+      "temperature_at_min_triple_product_kev": 13.746565900542102
+    },
+    "Q=5": {
+      "min_lawson_parameter_m3s": 7.658058487497658e+19,
+      "temperature_at_min_lawson_parameter_kev": 25.823777413393955,
+      "min_triple_product_kev_m3s": 1.4307370908946258e+21,
+      "temperature_at_min_triple_product_kev": 13.898864121976231
+    },
+    "Q=10": {
+      "min_lawson_parameter_m3s": 1.026801968940627e+20,
+      "temperature_at_min_lawson_parameter_kev": 25.87578328194456,
+      "min_triple_product_kev_m3s": 1.9272328095507085e+21,
+      "temperature_at_min_triple_product_kev": 14.015376135935588
+    },
+    "ignition": {
+      "min_lawson_parameter_m3s": 1.5576512664562555e+20,
+      "temperature_at_min_lawson_parameter_kev": 25.97997194922242,
+      "min_triple_product_kev_m3s": 2.9503172291853434e+21,
+      "temperature_at_min_triple_product_kev": 14.24380784788749
+    }
+  },
+  "thresholds_integrated_cross_sections": {
+    "Q=1": {
+      "min_lawson_parameter_m3s": 2.50465431587197e+19,
+      "temperature_at_min_lawson_parameter_kev": 25.699999999999623,
+      "min_triple_product_kev_m3s": 4.644609103771481e+20,
+      "temperature_at_min_triple_product_kev": 13.679999999999879
+    },
+    "ignition": {
+      "min_lawson_parameter_m3s": 1.545091510415871e+20,
+      "temperature_at_min_lawson_parameter_kev": 25.959999999999617,
+      "min_triple_product_kev_m3s": 2.9314483057257517e+21,
+      "temperature_at_min_triple_product_kev": 14.279999999999866
+    }
+  },
+  "published_wurzel_hsu_2022": {
+    "ideal_ignition_temperature_kev": 4.3,
+    "Q=1": {
+      "min_lawson_parameter_m3s": 2.5e+19,
+      "temperature_kev": 26,
+      "min_triple_product_kev_m3s": 4.6e+20,
+      "temperature_tp_kev": 14
+    },
+    "ignition": {
+      "min_lawson_parameter_m3s": 1.6e+20,
+      "temperature_kev": 26,
+      "min_triple_product_kev_m3s": 2.9e+21,
+      "temperature_tp_kev": 14
+    }
+  },
+  "experiments": {
+    "rows": 103,
+    "devices": 54,
+    "by_category": {
+      "Tokamak": 37,
+      "Spherical tokamak": 6,
+      "Stellarator": 6,
+      "Other magnetic concepts": 31,
+      "Laser inertial fusion": 23
+    },
+    "top_margins": [
+      {
+        "project": "ITER",
+        "shot": "Projected",
+        "date": "2039",
+        "T_i_keV": 20.0,
+        "fraction_of_ignition_requirement": 2.2579391242057603,
+        "uniform_plasma_equivalent_Q_fuel": Infinity,
+        "projected": 1
+      },
+      {
+        "project": "SPARC",
+        "shot": "Projected",
+        "date": "2027",
+        "T_i_keV": 20.0,
+        "fraction_of_ignition_requirement": 1.8917868337940154,
+        "uniform_plasma_equivalent_Q_fuel": Infinity,
+        "projected": 1
+      },
+      {
+        "project": "NIF",
+        "shot": "N210808",
+        "date": "2021-08-08",
+        "T_i_keV": 10.9,
+        "fraction_of_ignition_requirement": 1.7548778181866627,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N210307",
+        "date": "2021-03-07",
+        "T_i_keV": 5.55,
+        "fraction_of_ignition_requirement": 0.8624380297268007,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N210220",
+        "date": "2021-02-20",
+        "T_i_keV": 5.13,
+        "fraction_of_ignition_requirement": 0.852179829525815,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N210207",
+        "date": "2021-02-07",
+        "T_i_keV": 5.66,
+        "fraction_of_ignition_requirement": 0.8317346180049102,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N170827",
+        "date": "2017-08-27",
+        "T_i_keV": 4.5,
+        "fraction_of_ignition_requirement": 0.7667574614609591,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N170601",
+        "date": "2017-06-01",
+        "T_i_keV": 4.5,
+        "fraction_of_ignition_requirement": 0.7264018055945928,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N140304",
+        "date": "2014-03-04",
+        "T_i_keV": 5.5,
+        "fraction_of_ignition_requirement": 0.7087462409157662,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N201122",
+        "date": "2020-11-22",
+        "T_i_keV": 4.65,
+        "fraction_of_ignition_requirement": 0.5947589005730625,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N201101",
+        "date": "2020-11-01",
+        "T_i_keV": 4.61,
+        "fraction_of_ignition_requirement": 0.5381929678015679,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N191007",
+        "date": "2019-10-07",
+        "T_i_keV": 4.52,
+        "fraction_of_ignition_requirement": 0.4288278606913006,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N191110",
+        "date": "2019-11-10",
+        "T_i_keV": 4.54,
+        "fraction_of_ignition_requirement": 0.3926200299469296,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "NIF",
+        "shot": "N190918",
+        "date": "2019-09-18",
+        "T_i_keV": 4.43,
+        "fraction_of_ignition_requirement": 0.2900876892902534,
+        "uniform_plasma_equivalent_Q_fuel": "",
+        "projected": 0
+      },
+      {
+        "project": "JET",
+        "shot": "26087",
+        "date": "1991-11-02",
+        "T_i_keV": 18.6,
+        "fraction_of_ignition_requirement": 0.1948126210999087,
+        "uniform_plasma_equivalent_Q_fuel": 1.2625232888815334,
+        "projected": 0
+      },
+      {
+        "project": "JT-60U",
+        "shot": "E31872",
+        "date": "1998",
+        "T_i_keV": 16.8,
+        "fraction_of_ignition_requirement": 0.1831717640688146,
+        "uniform_plasma_equivalent_Q_fuel": 1.175990985931334,
+        "projected": 0
+      }
+    ]
+  },
+  "sensitivity": {
+    "reference_min_triple_product_kev_m3s": 2.9503172291853434e+21,
+    "impurity_cases": [
+      {
+        "species": "Helium",
+        "fraction": 0.05,
+        "z_eff": 1.1,
+        "fuel_fraction": 0.9,
+        "ideal_ignition_temperature_kev": 4.729851990251442,
+        "optimum_temperature_kev": 14.48311261580238,
+        "min_triple_product": 3.629552046159917e+21,
+        "penalty": 1.230224333253183
+      },
+      {
+        "species": "Helium",
+        "fraction": 0.1,
+        "z_eff": 1.2000000000000002,
+        "fuel_fraction": 0.8,
+        "ideal_ignition_temperature_kev": 5.255552594783284,
+        "optimum_temperature_kev": 14.819257744773052,
+        "min_triple_product": 4.6184928817192837e+21,
+        "penalty": 1.5654224691609062
+      },
+      {
+        "species": "Helium",
+        "fraction": 0.2,
+        "z_eff": 1.4,
+        "fuel_fraction": 0.6,
+        "ideal_ignition_temperature_kev": 6.814355271252051,
+        "optimum_temperature_kev": 16.0535733806366,
+        "min_triple_product": 8.787363689987534e+21,
+        "penalty": 2.978447064288726
+      },
+      {
+        "species": "Beryllium",
+        "fraction": 0.02,
+        "z_eff": 1.24,
+        "fuel_fraction": 0.92,
+        "ideal_ignition_temperature_kev": 4.846423090702736,
+        "optimum_temperature_kev": 14.55354478909102,
+        "min_triple_product": 3.4781863169826876e+21,
+        "penalty": 1.1789194336715791
+      },
+      {
+        "species": "Carbon",
+        "fraction": 0.01,
+        "z_eff": 1.2999999999999998,
+        "fuel_fraction": 0.94,
+        "ideal_ignition_temperature_kev": 4.853061427580888,
+        "optimum_temperature_kev": 14.55762768122677,
+        "min_triple_product": 3.35019333233875e+21,
+        "penalty": 1.1355366464316863
+      },
+      {
+        "species": "Carbon",
+        "fraction": 0.02,
+        "z_eff": 1.6,
+        "fuel_fraction": 0.88,
+        "ideal_ignition_temperature_kev": 5.430300367693592,
+        "optimum_temperature_kev": 14.941074182116923,
+        "min_triple_product": 3.861378249964035e+21,
+        "penalty": 1.308801037314302
+      },
+      {
+        "species": "Neon",
+        "fraction": 0.005,
+        "z_eff": 1.45,
+        "fuel_fraction": 0.95,
+        "ideal_ignition_temperature_kev": 4.993875021361832,
+        "optimum_temperature_kev": 14.646050718303359,
+        "min_triple_product": 3.315582581065674e+21,
+        "penalty": 1.123805449890956
+      },
+      {
+        "species": "Neon",
+        "fraction": 0.01,
+        "z_eff": 1.9,
+        "fuel_fraction": 0.9,
+        "ideal_ignition_temperature_kev": 5.671923174682451,
+        "optimum_temperature_kev": 15.117163145697765,
+        "min_triple_product": 3.774430491218635e+21,
+        "penalty": 1.2793303899258486
+      }
+    ],
+    "fuel_mix_penalty": {
+      "0.30": 1.2043698722122282,
+      "0.40": 1.0443158758353228,
+      "0.45": 1.0107232817572478,
+      "0.50": 1.0
+    },
+    "textbook_triple_product_kev_m3s": 3.0991735537190086e+21,
+    "textbook_over_reference": 1.0504543454043307,
+    "no_bremsstrahlung_min_triple_product_kev_m3s": 2.774680247145107e+21
+  }
+}

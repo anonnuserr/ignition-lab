@@ -1,0 +1,4 @@
+# Store text files with Unix line endings so the repository is the same on every system.
+* text=auto eol=lf
+*.pdf binary
+*.png binary

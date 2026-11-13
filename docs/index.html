@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ignition Lab: explore the conditions for fusion energy</title>
+<meta name="description" content="An interactive laboratory for fusion energy: explore the Lawson criteria against 103 real experiments, then design a tokamak and see whether it reaches net energy gain.">
+<meta name="theme-color" content="#07090d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237b5cff'/%3E%3Cstop offset='.55' stop-color='%23ff4fa3'/%3E%3Cstop offset='1' stop-color='%23ff9d4d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cellipse cx='16' cy='16' rx='12' ry='7' fill='none' stroke='url(%23g)' stroke-width='4'/%3E%3C/svg%3E">
+<script type="importmap">
+{
+  "imports": {
+    "d3": "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm",
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Ignition Lab, back to top">
+    <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><defs><linearGradient id="brandGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b5cff"/><stop offset=".55" stop-color="#ff4fa3"/><stop offset="1" stop-color="#ff9d4d"/></linearGradient></defs><ellipse cx="16" cy="16" rx="12" ry="7" fill="none" stroke="url(#brandGradient)" stroke-width="4"/></svg>
+    <span>Ignition Lab</span>
+  </a>
+  <nav aria-label="Sections">
+    <a href="#explorer">Explorer</a>
+    <a href="#designer">Reactor designer</a>
+    <a href="#method">Method</a>
+    <a href="report.pdf" class="nav-report">Report (PDF)</a>
+  </nav>
+</header>
+
+<noscript><p class="notice">Ignition Lab needs JavaScript to run its tools. Please enable JavaScript and reload the page.</p></noscript>
+<p class="notice" id="fileNotice" hidden>This page was opened directly from a file, so the browser blocks its interactive tools. Open it through a web server instead: see "View the site locally" in the project's README, or use the published website.</p>
+<script>if (location.protocol === "file:") document.getElementById("fileNotice").hidden = false;</script>
+
+<main id="top">
+
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="eyebrow">An interactive fusion laboratory</p>
+    <h1>How hot, how dense,<br>and for <em>how long?</em></h1>
+    <p class="lede">Fusion pays back its energy only when a plasma is hot enough, dense enough and holds its heat long enough. Explore that rule against 103 real experiments, then design a reactor and see whether it gets there.</p>
+    <div class="hero-actions">
+      <a class="button primary" href="#explorer">Explore the criteria</a>
+      <a class="button ghost" href="#designer">Design a reactor</a>
+    </div>
+    <dl class="hero-stats">
+      <div><dt>Experiments plotted</dt><dd>103</dd></div>
+      <div><dt>Years covered</dt><dd>1957 to 2023</dd></div>
+      <div><dt>Published designs reproduced</dt><dd>SPARC &amp; ITER</dd></div>
+    </dl>
+  </div>
+  <p class="hero-caption" id="heroCaption">Live model of the reactor you design below, drawn to its real proportions.</p>
+</section>
+
+<!-- ============================== EXPLORER ============================== -->
+<section class="section" id="explorer">
+  <div class="section-head">
+    <p class="eyebrow">Part one</p>
+    <h2>The Lawson explorer</h2>
+    <p class="section-lede">Set the temperature, density and confinement time of a plasma. The model tells you how much fusion energy comes back, and shows where that plasma sits among every major fusion experiment since 1957. Drag the glowing dot to move it.</p>
+  </div>
+
+  <div class="workbench">
+    <aside class="panel controls" aria-label="Plasma settings">
+      <h3>Your plasma</h3>
+      <div id="explorerControls"></div>
+      <h3 class="spaced">Purity</h3>
+      <div id="explorerPurity"></div>
+      <h3 class="spaced">Start from a real result</h3>
+      <div class="chips" id="explorerPresets"></div>
+    </aside>
+
+    <div class="stage">
+      <div class="readouts" id="explorerReadouts" aria-live="polite"></div>
+      <div class="panel chart-panel">
+        <div class="chart-toolbar">
+          <div class="segmented" role="group" aria-label="Chart range">
+            <button type="button" data-range="near" class="is-active">Near ignition</button>
+            <button type="button" data-range="all">All experiments</button>
+          </div>
+          <label class="switch"><input type="checkbox" id="showLaser" checked><span>Laser fusion</span></label>
+        </div>
+        <div class="chart" id="lawsonChart"></div>
+        <div class="legend" id="lawsonLegend"></div>
+      </div>
+      <div class="panel balance">
+        <div class="balance-head">
+          <h3>Where the power goes</h3>
+          <p id="balanceNote"></p>
+        </div>
+        <div id="balanceBars"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== DESIGNER ============================== -->
+<section class="section" id="designer">
+  <div class="section-head">
+    <p class="eyebrow">Part two</p>
+    <h2>The reactor designer</h2>
+    <p class="section-lede">Choose a machine's size, shape, magnetic field and current. The model finds the temperature at which heating and losses balance, using the confinement law that was used to size ITER and SPARC, and reports the fusion power, the gain and how close the design runs to its operating limits.</p>
+  </div>
+
+  <div class="chips presets" id="designerPresets" aria-label="Start from a real machine"></div>
+
+  <div class="workbench three">
+    <aside class="panel controls" aria-label="Machine and plasma settings">
+      <h3>Machine</h3>
+      <div id="machineControls"></div>
+      <h3 class="spaced">Operation</h3>
+      <div id="operationControls"></div>
+      <details class="advanced">
+        <summary>Physics assumptions</summary>
+        <div id="assumptionControls"></div>
+      </details>
+    </aside>
+
+    <div class="stage">
+      <div class="readouts" id="designerReadouts" aria-live="polite"></div>
+      <div class="panel view-panel">
+        <div class="chart-toolbar">
+          <div class="segmented" role="group" aria-label="View">
+            <button type="button" data-view="3d" class="is-active">3D plasma</button>
+            <button type="button" data-view="section">Cross-section to scale</button>
+          </div>
+          <span class="hint" id="viewHint">Drag to rotate</span>
+        </div>
+        <div class="view" id="view3d"><canvas id="designCanvas" aria-label="Three-dimensional model of the plasma"></canvas></div>
+        <div class="view chart" id="viewSection" hidden></div>
+      </div>
+    </div>
+
+    <aside class="panel limits" aria-label="Operating limits">
+      <h3>Operating limits</h3>
+      <p class="panel-note">A design only works if it stays inside all of these.</p>
+      <div id="limitGauges"></div>
+      <div class="verdict" id="designVerdict"></div>
+    </aside>
+  </div>
+
+  <div class="panel map-panel">
+    <div class="map-head">
+      <div>
+        <h3>Design space: size against magnetic field</h3>
+        <p class="panel-note" id="mapNote"></p>
+      </div>
+      <div class="colorbar" id="mapColorbar"></div>
+    </div>
+    <div class="chart" id="designMap"></div>
+  </div>
+</section>
+
+<!-- ============================== METHOD ============================== -->
+<section class="section" id="method">
+  <div class="section-head">
+    <p class="eyebrow">Part three</p>
+    <h2>Method and validation</h2>
+    <p class="section-lede">Every number on this page comes from a small physics model that is tested against published results. The tables below are computed live in your browser by the same code that drives the tools above.</p>
+  </div>
+
+  <div class="method-grid">
+    <article class="panel prose">
+      <h3>The power balance</h3>
+      <p>A plasma is heated by its own fusion reactions and by external power. It loses energy as radiation and by heat leaking out. In steady state the two sides are equal:</p>
+      <div class="equation" data-tex="S_{\mathrm{ext}} + f_c\,S_F \;=\; S_B + \frac{W}{\tau_E}"></div>
+      <p>Solving for the product of density and confinement time gives the Lawson criterion used in the explorer, here in the form that allows an impure plasma:</p>
+      <div class="equation" data-tex="n_e\tau_E=\frac{\tfrac32(1+f_i)\,T}{\left(f_c+Q^{-1}\right)x(1-x)f_{DT}^{2}\langle\sigma v\rangle\varepsilon_F-C_B Z_{\mathrm{eff}}T^{1/2}}"></div>
+      <p>The reactor designer adds real geometry and profiles. It predicts the confinement time from the machine itself with the empirical law fitted to tokamak experiments worldwide:</p>
+      <div class="equation" data-tex="\tau_E = 0.0562\,H\,I_p^{0.93}B^{0.15}\bar n_{19}^{0.41}P^{-0.69}R^{1.97}\kappa^{0.78}\epsilon^{0.58}M^{0.19}"></div>
+      <p>and then finds the temperature at which the stored energy equals that confinement time multiplied by the power flowing out.</p>
+    </article>
+
+    <article class="panel">
+      <h3>Check 1: published thresholds</h3>
+      <p class="panel-note">Uniform 50:50 deuterium-tritium plasma, against Wurzel and Hsu (2022).</p>
+      <div class="table-wrap"><table id="thresholdTable"></table></div>
+    </article>
+
+    <article class="panel">
+      <h3>Check 2: the SPARC design</h3>
+      <p class="panel-note">Every input is taken from the SPARC design paper (Creely et al., 2020). Nothing was adjusted.</p>
+      <div class="table-wrap"><table id="sparcTable"></table></div>
+    </article>
+
+    <article class="panel">
+      <h3>Check 3: ITER, and an honest caveat</h3>
+      <p class="panel-note">Predictions are very sensitive to how peaked the temperature profile is assumed to be. ITER's design gain is reproduced with a broad profile; a peaked one nearly doubles it.</p>
+      <div class="table-wrap"><table id="iterTable"></table></div>
+    </article>
+
+    <article class="panel prose">
+      <h3>What the model leaves out</h3>
+      <ul>
+        <li><strong>The explorer</strong> treats the plasma as uniform, with equal ion and electron temperatures. Fed with peak values it is optimistic, by up to 3.5 times for the real shots examined in the report.</li>
+        <li><strong>The designer</strong> assumes simple profile shapes, standard H-mode confinement and no fast-particle losses. It does not model the plasma edge, the exhaust, the magnets or the wall.</li>
+        <li><strong>Radiation</strong> is bremsstrahlung, optionally scaled up to stand in for impurity line radiation. Synchrotron radiation is neglected.</li>
+        <li><strong>Limits</strong> shown are the standard empirical ones. Staying inside them is necessary, not sufficient.</li>
+        <li>Professional design codes such as PROCESS and cfspopcon go much further. This tool is for learning and first estimates.</li>
+      </ul>
+    </article>
+
+    <article class="panel prose">
+      <h3>Sources</h3>
+      <ol class="sources">
+        <li>J. D. Lawson, Proc. Phys. Soc. B <strong>70</strong>, 6 (1957).</li>
+        <li>H.-S. Bosch and G. M. Hale, Nucl. Fusion <strong>32</strong>, 611 (1992).</li>
+        <li>S. E. Wurzel and S. C. Hsu, Phys. Plasmas <strong>29</strong>, 062103 (2022) and <strong>32</strong>, 112106 (2025).</li>
+        <li>ITER Physics Basis, Nucl. Fusion <strong>39</strong>, 2175 (1999).</li>
+        <li>A. J. Creely et al., J. Plasma Phys. <strong>86</strong>, 865860502 (2020).</li>
+        <li>Y. R. Martin and T. Takizuka, J. Phys.: Conf. Ser. <strong>123</strong>, 012033 (2008).</li>
+        <li>O. Sauter, Fusion Eng. Des. <strong>112</strong>, 633 (2016).</li>
+      </ol>
+      <p class="links"><a class="button ghost small" href="report.pdf">Read the full report</a></p>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <p><strong>Ignition Lab</strong> by Ekorshi Paul Choudhury. Physics in tested Python and JavaScript; experimental data from Wurzel and Hsu (2025).</p>
+  <p class="muted">For education and first estimates. Not a substitute for a design code.</p>
+</footer>
+
+<div class="tooltip" id="tooltip" role="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" defer></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
